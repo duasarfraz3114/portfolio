@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dua Sarfraz — Data Science</title>
+<meta name="description" content="Portfolio of Dua Sarfraz, Data Science student — data cleaning, analysis, and applied machine learning work.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:      #F3F5F1;
+    --paper-alt:  #EAEEE6;
+    --ink:        #1E2A24;
+    --body:       #3B453F;
+    --muted:      #6B7770;
+    --accent:     #3D6B63;
+    --accent-warm:#A97A34;
+    --line:       #D7DED4;
+
+    --serif: 'Source Serif 4', Georgia, serif;
+    --sans:  'IBM Plex Sans', -apple-system, Segoe UI, sans-serif;
+    --mono:  'IBM Plex Mono', 'Courier New', monospace;
+
+    --measure: 42rem;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--body);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:var(--serif);
+    color:var(--ink);
+    margin:0 0 0.5em 0;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+
+  a{ color:var(--accent); }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .skip-link{
+    position:absolute;
+    left:-999px;
+    top:0;
+    background:var(--ink);
+    color:var(--paper);
+    padding:0.6em 1em;
+    z-index:100;
+    font-family:var(--mono);
+    font-size:0.85rem;
+  }
+  .skip-link:focus{ left:1rem; top:1rem; }
+
+  /* --- Nav --- */
+  header.site-nav{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(243,245,241,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:52rem;
+    margin:0 auto;
+    padding:0.9rem 1.5rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:0.6rem 1.2rem;
+  }
+  .nav-mark{
+    font-family:var(--mono);
+    font-size:0.85rem;
+    color:var(--ink);
+    text-decoration:none;
+    letter-spacing:0.02em;
+  }
+  .nav-links{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    gap:1.1rem;
+    margin:0;
+    padding:0;
+    font-family:var(--mono);
+    font-size:0.78rem;
+  }
+  .nav-links a{
+    text-decoration:none;
+    color:var(--body);
+    padding:0.2em 0;
+    border-bottom:1px solid transparent;
+  }
+  .nav-links a:hover,
+  .nav-links a.is-active{
+    color:var(--accent);
+    border-bottom-color:var(--accent);
+  }
+
+  /* --- Layout --- */
+  main{ max-width:52rem; margin:0 auto; padding:0 1.5rem; }
+
+  section{
+    padding:4.5rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{ border-bottom:none; }
+
+  .eyebrow{
+    display:block;
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--accent);
+    letter-spacing:0.06em;
+    margin-bottom:0.9rem;
+  }
+
+  p{ max-width:var(--measure); margin:0 0 1.1rem 0; }
+  p:last-child{ margin-bottom:0; }
+
+  /* --- Hero / About --- */
+  .hero h1{
+    font-size:clamp(2.1rem, 5vw, 3rem);
+    margin-bottom:0.3rem;
+  }
+  .hero .subhead{
+    font-family:var(--mono);
+    font-size:0.9rem;
+    color:var(--muted);
+    margin-bottom:1.8rem;
+  }
+
+  /* --- Data block (signature element) --- */
+  .data-block{
+    font-family:var(--mono);
+    font-size:0.82rem;
+    line-height:1.9;
+    background:var(--paper-alt);
+    border-left:3px solid var(--accent-warm);
+    padding:1rem 1.3rem;
+    margin:1.6rem 0 1.8rem 0;
+    color:var(--body);
+    overflow-x:auto;
+  }
+  .data-block .k{ color:var(--muted); }
+  .data-block .v{ color:var(--ink); }
+
+  h2{ font-size:clamp(1.35rem, 3vw, 1.65rem); }
+  h2 .role-org{ display:block; }
+
+  .lede{
+    font-family:var(--mono);
+    font-size:0.85rem;
+    color:var(--muted);
+    margin-bottom:1.2rem;
+  }
+
+  ul.findings{
+    margin:0 0 1.3rem 0;
+    padding-left:1.2rem;
+  }
+  ul.findings li{ margin-bottom:0.55rem; max-width:var(--measure); }
+  ul.findings li:last-child{ margin-bottom:0; }
+
+  .closing-note{
+    font-style:italic;
+    color:var(--muted);
+    border-top:1px solid var(--line);
+    padding-top:1.1rem;
+    margin-top:1.5rem;
+  }
+
+  /* --- Projects --- */
+  .project{
+    padding:1.8rem 0;
+    border-top:1px solid var(--line);
+  }
+  .project:first-of-type{ border-top:none; padding-top:0; }
+  .project h3{ font-size:1.2rem; margin-bottom:0.25rem; }
+  .stack-line{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--accent);
+    margin-bottom:0.9rem;
+    display:block;
+  }
+
+  /* --- Experience --- */
+  .log-entry{
+    display:grid;
+    grid-template-columns:5.5rem 1fr;
+    gap:1rem;
+    padding:1.3rem 0;
+    border-top:1px solid var(--line);
+  }
+  .log-entry:first-of-type{ border-top:none; padding-top:0; }
+  .log-year{
+    font-family:var(--mono);
+    font-size:0.82rem;
+    color:var(--muted);
+    padding-top:0.15rem;
+  }
+  .log-role{ margin:0 0 0.3rem 0; font-size:1.05rem; color:var(--ink); font-weight:600; font-family:var(--sans); }
+  .log-org{ color:var(--muted); font-weight:400; }
+  .log-entry p{ margin:0; font-size:0.96rem; }
+
+  @media (max-width:520px){
+    .log-entry{ grid-template-columns:1fr; gap:0.3rem; }
+  }
+
+  /* --- Skills --- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:2rem;
+  }
+  .skill-group h3{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--accent);
+    font-weight:500;
+    margin-bottom:0.7rem;
+  }
+  .skill-group ul{
+    list-style:none;
+    margin:0; padding:0;
+    font-size:0.92rem;
+    color:var(--body);
+  }
+  .skill-group li{
+    padding:0.28rem 0;
+    border-top:1px solid var(--line);
+  }
+  .skill-group li:first-child{ border-top:none; }
+
+  /* --- Contact --- */
+  .contact-list{
+    list-style:none;
+    margin:0; padding:0;
+    font-size:1rem;
+  }
+  .contact-list li{
+    padding:0.8rem 0;
+    border-top:1px solid var(--line);
+    display:flex;
+    gap:0.9rem;
+    align-items:baseline;
+    flex-wrap:wrap;
+  }
+  .contact-list li:first-child{ border-top:none; }
+  .contact-label{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--muted);
+    width:5.5rem;
+    flex-shrink:0;
+  }
+  .contact-list a{ text-decoration:none; border-bottom:1px solid var(--line); }
+  .contact-list a:hover{ border-bottom-color:var(--accent); }
+
+  footer{
+    padding:2.5rem 1.5rem 3rem;
+    text-align:center;
+    font-family:var(--mono);
+    font-size:0.75rem;
+    color:var(--muted);
+  }
+
+  /* --- Reveal on scroll --- */
+  .reveal{
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.is-visible{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-mark" href="#top">DS / Sarfraz</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research &amp; Data Work</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <section id="about" class="hero" aria-labelledby="about-heading">
+    <span id="top"></span>
+    <span class="eyebrow">§ 01 — About</span>
+    <h1 id="about-heading">Dua Sarfraz</h1>
+    <p class="subhead">BS Data Science, FAST&#8209;NUCES (2024–Present) · Lahore, Pakistan</p>
+    <p>I work with data end to end — cleaning it, questioning it, modelling it, and writing up what it shows. Most of that so far has come from analytics internships and independent projects: preparing raw datasets, running exploratory and SQL-based analysis, and building the dashboards and reports that come out of it.</p>
+    <p>I'm currently looking to bring that same process — clean, question, verify, document — to research work, particularly where data can support public-health and climate-related questions.</p>
+  </section>
+
+  <section id="research" aria-labelledby="research-heading" class="reveal">
+    <span class="eyebrow">§ 02 — Research &amp; Data Work</span>
+    <h2 id="research-heading">Data Analytics Internship — Decode Labs, 2026</h2>
+    <p class="lede">The clearest example of how I approach a dataset.</p>
+
+    <div class="data-block" role="img" aria-label="Dataset summary: e-commerce transactions, 1,200 records, 14 columns, using Python, Pandas, Microsoft SQL Server SSMS, Matplotlib, and Git.">
+      <div><span class="k">dataset </span> : <span class="v">e-commerce transactions</span></div>
+      <div><span class="k">records </span> : <span class="v">1,200</span></div>
+      <div><span class="k">columns </span> : <span class="v">14</span></div>
+      <div><span class="k">tools   </span> : <span class="v">Python, Pandas, Microsoft SQL Server (SSMS), Matplotlib, Git</span></div>
+    </div>
+
+    <ul class="findings">
+      <li>Cleaned and prepared the dataset: handled missing values, checked for duplicates and inconsistencies, and validated data quality before any analysis began.</li>
+      <li>Explored the data through descriptive statistics and visualisations built in Matplotlib.</li>
+      <li>Queried the dataset directly in SSMS — <code>SELECT</code>, <code>WHERE</code>, <code>ORDER BY</code>, <code>GROUP BY</code>, <code>COUNT</code>, <code>SUM</code> and <code>AVG</code> — to answer specific analytical questions.</li>
+      <li>Documented cleaning decisions, findings and outcomes, and tracked the work with Git.</li>
+    </ul>
+
+    <p class="closing-note">It's a small dataset, but the process is the one I'd bring to a larger research pipeline: clean, question, verify, document.</p>
+  </section>
+
+  <section id="projects" aria-labelledby="projects-heading" class="reveal">
+    <span class="eyebrow">§ 03 — Projects</span>
+    <h2 id="projects-heading">Projects</h2>
+
+    <div class="project">
+      <h3>Loan Default Prediction System</h3>
+      <span class="stack-line">Python · Pandas · Scikit-learn · Matplotlib</span>
+      <ul class="findings">
+        <li>Cleaned and preprocessed a real-world loan dataset, handling missing values, outliers and feature encoding.</li>
+        <li>Trained and compared Logistic Regression and Decision Tree models.</li>
+        <li>Used the model outputs to produce a loan-approval recommendation based on applicant risk profile.</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <h3>Lendigo — Peer-to-Peer Lending Platform</h3>
+      <span class="stack-line">React · Node.js · SQL Server · Firebase · Socket.IO — group project</span>
+      <ul class="findings">
+        <li>Full-stack marketplace covering asset listings, borrow requests, offer negotiation and wallet payments.</li>
+        <li>Built real-time booking chat over JWT-secured WebSocket connections.</li>
+        <li>Contributed to an admin dashboard with CRUD over users, bookings and transactions.</li>
+        <li>Worked as part of a team across requirements, implementation, integration and documentation.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="experience" aria-labelledby="experience-heading" class="reveal">
+    <span class="eyebrow">§ 04 — Experience</span>
+    <h2 id="experience-heading">Experience</h2>
+
+    <div class="log-entry">
+      <div class="log-year">2026</div>
+      <div>
+        <p class="log-role">Data Analytics Intern <span class="log-org">— Decode Labs</span></p>
+        <p>Cleaned, analysed and documented a 1,200-record e-commerce dataset using Python, SQL and Matplotlib. Detailed above under Research &amp; Data Work.</p>
+      </div>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-year">2026</div>
+      <div>
+        <p class="log-role">Data Analytics Intern <span class="log-org">— CodeAlpha</span></p>
+        <p>End-to-end analytics work: cleaning and structuring raw data, exploratory analysis in Python/Pandas and SQL, and building interactive Power BI dashboards and reports.</p>
+      </div>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-year">2026</div>
+      <div>
+        <p class="log-role">Full Stack Development Intern <span class="log-org">— CodeAlpha</span></p>
+        <p>Built full-stack application features spanning React frontends, backend/API architecture, databases and authentication, using structured Git workflows.</p>
+      </div>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-year">2026</div>
+      <div>
+        <p class="log-role">AI/ML Intern <span class="log-org">— FlyRank</span></p>
+        <p>Applied machine-learning project work.</p>
+      </div>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-year">2023</div>
+      <div>
+        <p class="log-role">Management Intern / Writer <span class="log-org">— Marvel Concepts</span></p>
+        <p>Supported daily operations and team coordination, and helped improve workflow efficiency. Moved into a full-time writer role based on performance.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" aria-labelledby="skills-heading" class="reveal">
+    <span class="eyebrow">§ 05 — Skills</span>
+    <h2 id="skills-heading">Skills</h2>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Data &amp; Analysis</h3>
+        <ul>
+          <li>Python</li><li>Pandas</li><li>NumPy</li><li>SQL</li><li>Excel</li>
+          <li>Power BI</li><li>Matplotlib</li><li>Scikit-learn</li>
+          <li>Jupyter Notebook</li><li>Streamlit</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Engineering</h3>
+        <ul>
+          <li>React</li><li>Node.js</li><li>Firebase</li><li>Socket.IO</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Databases &amp; Tools</h3>
+        <ul>
+          <li>Microsoft SQL Server</li><li>SSMS</li><li>MySQL</li>
+          <li>Git</li><li>GitHub</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-heading" class="reveal">
+    <span class="eyebrow">§ 06 — Contact</span>
+    <h2 id="contact-heading">Contact</h2>
+    <p>I'm happy to share more detail on any of the work above, or talk through how it applies to a specific role.</p>
+
+    <ul class="contact-list">
+      <li>
+        <span class="contact-label">Email</span>
+        <a href="mailto:duasarfraz2005@gmail.com">duasarfraz2005@gmail.com</a>
+      </li>
+      <li>
+        <span class="contact-label">GitHub</span>
+        <a href="https://github.com/duasarfra3114" target="_blank" rel="noopener noreferrer">github.com/duasarfra3114</a>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <p>Built and maintained by Dua Sarfraz<span id="year-suffix"> · 2026</span></p>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  // --- Scroll reveal, with safe fallback if IntersectionObserver is unavailable ---
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && revealEls.length) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  // --- Active nav link on scroll ---
+  var sections = document.querySelectorAll('main section[id]');
+  var navLinks = document.querySelectorAll('.nav-links a');
+  if ('IntersectionObserver' in window && sections.length && navLinks.length) {
+    var navObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var id = entry.target.getAttribute('id');
+        navLinks.forEach(function (link) {
+          var match = link.getAttribute('href') === '#' + id;
+          link.classList.toggle('is-active', match);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(function (s) { navObserver.observe(s); });
+  }
+
+  // --- Footer year, updates automatically; static "2026" already shown as fallback ---
+  var yearEl = document.getElementById('year-suffix');
+  if (yearEl) {
+    var currentYear = new Date().getFullYear();
+    if (!isNaN(currentYear)) {
+      yearEl.textContent = ' · ' + currentYear;
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
